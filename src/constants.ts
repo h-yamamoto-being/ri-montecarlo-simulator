@@ -1,4 +1,4 @@
-import type { ScenarioParams, FxModelParams } from './types'
+import type { ScenarioParams, FxModelParams, ScenarioKey } from './types'
 
 export const DEFAULT_SCENARIO_PARAMS: ScenarioParams = {
   hourlyRate: 8.896,
@@ -19,3 +19,17 @@ export const DEFAULT_FX_MODEL_PARAMS: FxModelParams = {
 }
 
 export const MONTHS = 12
+
+export const SCENARIO_KEYS: ScenarioKey[] = [
+  'onDemand',
+  'riNoUpfront',
+  'riPartialUpfront',
+  'riFullUpfront',
+]
+
+export const SCENARIO_LABELS: Record<ScenarioKey, string> = {
+  onDemand: 'オンデマンド',
+  riNoUpfront: 'RI・前払いなし',
+  riPartialUpfront: 'RI・一部前払い',
+  riFullUpfront: 'RI・全額前払い',
+}
