@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -18,6 +18,8 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 const props = defineProps<{
   runs: SimulationRun[]
 }>()
+
+const isOpen = ref(true)
 
 const chartData = computed(() => ({
   labels: Array.from({ length: 12 }, (_, i) => `${i + 1}月`),
@@ -48,8 +50,18 @@ const chartOptions = {
 </script>
 
 <template>
-  <section class="bg-white rounded-lg shadow p-4">
-    <h2 class="text-lg font-semibold mb-4">全パターンの為替推移</h2>
-    <Line :data="chartData" :options="chartOptions" />
+  <section class="bg-white rounded-lg shadow">
+    <button
+      class="flex items-center gap-2 w-full px-4 py-3 text-left font-semibold hover:bg-gray-50 rounded-lg"
+      @click="isOpen = !isOpen"
+      :aria-expanded="isOpen"
+    >
+      <span :class="['transition-transform text-sm text-gray-400', isOpen ? 'rotate-90' : '']">▶</span>
+      全パターンの為替推移
+    </button>
+
+    <div v-if="isOpen" class="px-4 pb-4">
+      <Line :data="chartData" :options="chartOptions" />
+    </div>
   </section>
 </template>

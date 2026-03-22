@@ -27,8 +27,21 @@ describe('ResultFxChart', () => {
     expect(wrapper.find('section').exists()).toBe(true)
   })
 
-  it('チャートコンポーネントが描画される', () => {
+  it('デフォルトで開いており、チャートが表示される', () => {
     const wrapper = mount(ResultFxChart, { props: { runs: mockRuns } })
+    expect(wrapper.find('[data-testid="chart-canvas"]').exists()).toBe(true)
+  })
+
+  it('ボタンクリックでチャートが折りたたまれる', async () => {
+    const wrapper = mount(ResultFxChart, { props: { runs: mockRuns } })
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.find('[data-testid="chart-canvas"]').exists()).toBe(false)
+  })
+
+  it('もう一度クリックでチャートが再表示される', async () => {
+    const wrapper = mount(ResultFxChart, { props: { runs: mockRuns } })
+    await wrapper.find('button').trigger('click')
+    await wrapper.find('button').trigger('click')
     expect(wrapper.find('[data-testid="chart-canvas"]').exists()).toBe(true)
   })
 
