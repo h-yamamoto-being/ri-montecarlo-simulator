@@ -15,7 +15,7 @@ export const DEFAULT_FX_MODEL_PARAMS: FxModelParams = {
   monthlyVariation: 3,
   normalYenStrengthProb: 60,
   interventionYenStrengthProb: 80,
-  simCount: 100,
+  simCount: 1000,
 }
 
 export const MONTHS = 12

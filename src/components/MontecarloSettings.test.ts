@@ -25,7 +25,7 @@ describe('MontecarloSettings', () => {
     const wrapper = mount(MontecarloSettings, {
       props: {
         params: makeParams(),
-        errors: { simCount: '10〜100 の整数で入力してください' },
+        errors: { simCount: '10〜1000 の整数で入力してください' },
       },
     })
     const inputs = wrapper.findAll('input')

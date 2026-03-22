@@ -104,13 +104,13 @@ defineProps<{
 
       <!-- シミュレーション回数 -->
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">シミュレーション回数（10〜100）</label>
+        <label class="block text-sm font-medium text-gray-700 mb-1">シミュレーション回数（10〜1000）</label>
         <input
           v-model.number="params.simCount"
           type="number"
           step="1"
           min="10"
-          max="100"
+          max="1000"
           :class="['border rounded px-3 py-2 w-full text-sm', errors.simCount ? 'border-red-500' : 'border-gray-300']"
         />
         <p v-if="errors.simCount" class="text-red-500 text-xs mt-1">{{ errors.simCount }}</p>
