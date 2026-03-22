@@ -29,6 +29,7 @@ const isOpen = ref(true)
           v-model.number="params.currentRate"
           type="number"
           step="0.1"
+          data-testid="input-current-rate"
           :class="['border rounded px-3 py-2 w-full text-sm', errors.currentRate ? 'border-red-500' : 'border-gray-300']"
         />
         <p v-if="errors.currentRate" class="text-red-500 text-xs mt-1">{{ errors.currentRate }}</p>
@@ -121,6 +122,7 @@ const isOpen = ref(true)
           step="1"
           min="10"
           max="1000"
+          data-testid="input-sim-count"
           :class="['border rounded px-3 py-2 w-full text-sm', errors.simCount ? 'border-red-500' : 'border-gray-300']"
         />
         <p v-if="errors.simCount" class="text-red-500 text-xs mt-1">{{ errors.simCount }}</p>
