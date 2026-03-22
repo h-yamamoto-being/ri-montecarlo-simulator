@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <section class="bg-white rounded-lg shadow p-4">
+  <section class="bg-white rounded-lg shadow p-4" data-testid="result-summary">
     <h2 class="text-lg font-semibold mb-4">最安シナリオの集計</h2>
 
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">

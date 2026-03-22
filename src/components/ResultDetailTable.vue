@@ -24,7 +24,7 @@ const isOpen = ref(false)
     </button>
 
     <div v-if="isOpen" class="mt-4 overflow-x-auto">
-      <table class="text-xs whitespace-nowrap w-full">
+      <table class="text-xs whitespace-nowrap w-full" data-testid="detail-table">
         <thead>
           <tr class="border-b bg-gray-50">
             <th class="py-2 px-2 text-left font-medium text-gray-600 sticky left-0 bg-gray-50">#</th>
