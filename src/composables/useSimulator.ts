@@ -54,8 +54,8 @@ export function useSimulator() {
     if (isNaN(fxParams.interventionYenStrengthProb) || fxParams.interventionYenStrengthProb < 1 || fxParams.interventionYenStrengthProb > 99) {
       errors.interventionYenStrengthProb = '1〜99 の範囲で入力してください'
     }
-    if (isNaN(fxParams.simCount) || !Number.isInteger(fxParams.simCount) || fxParams.simCount < 10 || fxParams.simCount > 100) {
-      errors.simCount = '10〜100 の整数で入力してください'
+    if (isNaN(fxParams.simCount) || !Number.isInteger(fxParams.simCount) || fxParams.simCount < 10 || fxParams.simCount > 1000) {
+      errors.simCount = '10〜1000 の整数で入力してください'
     }
 
     fxErrors.value = errors

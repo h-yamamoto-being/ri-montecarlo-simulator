@@ -154,9 +154,9 @@ describe('useSimulator - validateFx', () => {
     expect(fxErrors.value.simCount).toBeDefined()
   })
 
-  it('simCount が 100 超過でエラーになる', () => {
+  it('simCount が 1000 超過でエラーになる', () => {
     const { fxParams, validateFx, fxErrors } = useSimulator()
-    fxParams.simCount = 101
+    fxParams.simCount = 1001
     validateFx()
     expect(fxErrors.value.simCount).toBeDefined()
   })
