@@ -19,9 +19,20 @@ const {
 
 <template>
   <div class="min-h-screen bg-gray-100">
-    <header class="bg-indigo-700 text-white px-4 py-4 shadow">
-      <h1 class="text-xl font-bold">AWS RDS RI コストシミュレーター</h1>
-      <p class="text-indigo-200 text-sm mt-0.5">為替レートをモンテカルロ法でシミュレーションし、4シナリオの年間コストを比較します</p>
+    <header class="bg-indigo-700 text-white px-4 py-3 shadow sticky top-0 z-10">
+      <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+        <div>
+          <h1 class="text-xl font-bold">AWS RDS RI コストシミュレーター</h1>
+          <p class="text-indigo-200 text-sm mt-0.5">為替レートをモンテカルロ法でシミュレーションし、4シナリオの年間コストを比較します</p>
+        </div>
+        <button
+          class="shrink-0 bg-white text-indigo-700 hover:bg-indigo-50 font-semibold px-5 py-2 rounded-lg shadow transition-colors"
+          data-testid="run-button"
+          @click="runSimulation"
+        >
+          シミュレーション実行
+        </button>
+      </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-4 py-6">
@@ -32,13 +43,6 @@ const {
           <ScenarioSettings :params="scenarioParams" :errors="scenarioErrors" />
           <MontecarloSettings :params="fxParams" :errors="fxErrors" />
 
-          <button
-            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors"
-            data-testid="run-button"
-            @click="runSimulation"
-          >
-            シミュレーション実行
-          </button>
         </aside>
 
         <!-- 右カラム：結果エリア -->

@@ -19,7 +19,7 @@ const props = defineProps<{
   runs: SimulationRun[]
 }>()
 
-const isOpen = ref(false)
+const isOpen = ref(true)
 
 const chartData = computed(() => ({
   labels: Array.from({ length: 12 }, (_, i) => `${i + 1}月`),
