@@ -1,17 +1,27 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { FxModelParams } from '../types'
 
 defineProps<{
   params: FxModelParams
   errors: Partial<Record<keyof FxModelParams, string>>
 }>()
+
+const isOpen = ref(true)
 </script>
 
 <template>
-  <section class="bg-white rounded-lg shadow p-4">
-    <h2 class="text-lg font-semibold mb-4">為替モデル設定</h2>
+  <section class="bg-white rounded-lg shadow">
+    <button
+      class="flex items-center gap-2 w-full px-4 py-3 text-left font-semibold hover:bg-gray-50 rounded-lg"
+      @click="isOpen = !isOpen"
+      :aria-expanded="isOpen"
+    >
+      <span :class="['transition-transform text-sm text-gray-400', isOpen ? 'rotate-90' : '']">▶</span>
+      為替モデル設定
+    </button>
 
-    <div class="space-y-4">
+    <div v-if="isOpen" class="px-4 pb-4 space-y-4">
       <!-- 現在レート -->
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">現在レート（円/USD）</label>

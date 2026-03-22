@@ -24,36 +24,40 @@ const {
       <p class="text-indigo-200 text-sm mt-0.5">為替レートをモンテカルロ法でシミュレーションし、4シナリオの年間コストを比較します</p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
-      <!-- 設定パネル -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <ScenarioSettings :params="scenarioParams" :errors="scenarioErrors" />
-        <MontecarloSettings :params="fxParams" :errors="fxErrors" />
-      </div>
+    <main class="max-w-7xl mx-auto px-4 py-6">
+      <div class="flex flex-col lg:flex-row gap-6 items-start">
 
-      <!-- 実行ボタン -->
-      <div class="flex justify-center">
-        <button
-          class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-3 rounded-lg shadow transition-colors"
-          @click="runSimulation"
-        >
-          シミュレーション実行
-        </button>
-      </div>
+        <!-- 左カラム：設定エリア -->
+        <aside class="w-full lg:w-80 xl:w-96 shrink-0 space-y-4 lg:sticky lg:top-6">
+          <ScenarioSettings :params="scenarioParams" :errors="scenarioErrors" />
+          <MontecarloSettings :params="fxParams" :errors="fxErrors" />
 
-      <!-- 結果パネル -->
-      <template v-if="result">
-        <ResultSummary :summary="result.summary" />
-        <ResultDistribution :summary="result.summary" />
-        <ResultFxChart :runs="result.runs" />
-        <ResultDetailTable :runs="result.runs" />
-      </template>
+          <button
+            class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition-colors"
+            data-testid="run-button"
+            @click="runSimulation"
+          >
+            シミュレーション実行
+          </button>
+        </aside>
 
-      <template v-else>
-        <div class="text-center text-gray-400 py-12">
-          <p>「シミュレーション実行」ボタンを押すと結果が表示されます</p>
+        <!-- 右カラム：結果エリア -->
+        <div class="flex-1 space-y-4 min-w-0">
+          <template v-if="result">
+            <ResultSummary :summary="result.summary" />
+            <ResultDistribution :summary="result.summary" />
+            <ResultFxChart :runs="result.runs" />
+            <ResultDetailTable :runs="result.runs" />
+          </template>
+
+          <template v-else>
+            <div class="bg-white rounded-lg shadow flex items-center justify-center py-24 text-gray-400">
+              <p>左のパネルで設定を確認し、「シミュレーション実行」を押してください</p>
+            </div>
+          </template>
         </div>
-      </template>
+
+      </div>
     </main>
   </div>
 </template>

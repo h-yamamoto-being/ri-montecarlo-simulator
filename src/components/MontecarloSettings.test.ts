@@ -14,11 +14,19 @@ describe('MontecarloSettings', () => {
     expect(wrapper.find('section').exists()).toBe(true)
   })
 
-  it('8 つの入力フィールドが存在する', () => {
+  it('デフォルトで開いており 8 つの入力フィールドが存在する', () => {
     const wrapper = mount(MontecarloSettings, {
       props: { params: makeParams(), errors: {} },
     })
     expect(wrapper.findAll('input')).toHaveLength(8)
+  })
+
+  it('トグルボタンをクリックすると入力フィールドが非表示になる', async () => {
+    const wrapper = mount(MontecarloSettings, {
+      props: { params: makeParams(), errors: {} },
+    })
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.findAll('input')).toHaveLength(0)
   })
 
   it('simCount のエラー時に赤枠クラスが付く', () => {

@@ -14,10 +14,27 @@ describe('ScenarioSettings', () => {
     expect(wrapper.find('section').exists()).toBe(true)
   })
 
-  it('4 つの入力フィールドが存在する', () => {
+  it('デフォルトで開いており 4 つの入力フィールドが存在する', () => {
     const wrapper = mount(ScenarioSettings, {
       props: { params: makeParams(), errors: {} },
     })
+    expect(wrapper.findAll('input')).toHaveLength(4)
+  })
+
+  it('トグルボタンをクリックすると入力フィールドが非表示になる', async () => {
+    const wrapper = mount(ScenarioSettings, {
+      props: { params: makeParams(), errors: {} },
+    })
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.findAll('input')).toHaveLength(0)
+  })
+
+  it('もう一度クリックすると入力フィールドが再表示される', async () => {
+    const wrapper = mount(ScenarioSettings, {
+      props: { params: makeParams(), errors: {} },
+    })
+    await wrapper.find('button').trigger('click')
+    await wrapper.find('button').trigger('click')
     expect(wrapper.findAll('input')).toHaveLength(4)
   })
 
