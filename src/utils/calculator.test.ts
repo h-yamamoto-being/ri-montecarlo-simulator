@@ -9,8 +9,8 @@ const DEFAULT_PARAMS: ScenarioParams = {
   riPartialMonthly: 2272.93,
 }
 
-// 全月レートが固定値のシンプルなケース
-const FLAT_RATES_160 = Array(12).fill(160)
+// rates[0] = 現在（チャート表示用）、rates[1..12] = 支払い月
+const FLAT_RATES_160 = [160, ...Array(12).fill(160)]
 
 describe('calcScenarioCosts', () => {
   it('オンデマンド：全月一定レートの場合、月額×12ヶ月分の合計になる', () => {
@@ -33,23 +33,25 @@ describe('calcScenarioCosts', () => {
   })
 
   it('RI一部前払い：前払い分は1ヶ月目レート、月額分は各月レートで計算される', () => {
-    const rates = Array(12).fill(0).map((_, i) => 160 + i) // 160〜171
+    // rates[0]=現在（チャート用）、rates[1..12]=支払い月 (160〜171)
+    const rates = [159, ...Array(12).fill(0).map((_, i) => 160 + i)]
+    const monthlyRates = rates.slice(1)
     const costs = calcScenarioCosts(DEFAULT_PARAMS, rates)
-    const expectedUpfront = DEFAULT_PARAMS.riPartialUpfront * rates[0]
-    const expectedMonthly = rates.reduce((s, r) => s + DEFAULT_PARAMS.riPartialMonthly * r, 0)
+    const expectedUpfront = DEFAULT_PARAMS.riPartialUpfront * monthlyRates[0]
+    const expectedMonthly = monthlyRates.reduce((s, r) => s + DEFAULT_PARAMS.riPartialMonthly * r, 0)
     expect(costs.riPartialUpfront).toBeCloseTo(expectedUpfront + expectedMonthly, 0)
   })
 
   it('RI全額前払い：為替レートが変動しても1ヶ月目レートのみ使用する', () => {
-    const ratesA = [150, ...Array(11).fill(200)]
-    const ratesB = [150, ...Array(11).fill(100)]
+    const ratesA = [0, 150, ...Array(11).fill(200)]
+    const ratesB = [0, 150, ...Array(11).fill(100)]
     const costsA = calcScenarioCosts(DEFAULT_PARAMS, ratesA)
     const costsB = calcScenarioCosts(DEFAULT_PARAMS, ratesB)
     expect(costsA.riFullUpfront).toBeCloseTo(costsB.riFullUpfront, 0)
   })
 
   it('レートが0の場合は全シナリオが0円になる', () => {
-    const costs = calcScenarioCosts(DEFAULT_PARAMS, Array(12).fill(0))
+    const costs = calcScenarioCosts(DEFAULT_PARAMS, Array(13).fill(0))
     expect(costs.onDemand).toBe(0)
     expect(costs.riNoUpfront).toBe(0)
     expect(costs.riPartialUpfront).toBe(0)
