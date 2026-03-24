@@ -22,7 +22,7 @@ const props = defineProps<{
 const isOpen = ref(true)
 
 const chartData = computed(() => ({
-  labels: Array.from({ length: 12 }, (_, i) => `${i + 1}月`),
+  labels: Array.from({ length: 12 }, (_, i) => `${i + 1}ヶ月後`),
   datasets: props.runs.map((run, i) => ({
     label: `パターン${i + 1}`,
     data: run.rates,
