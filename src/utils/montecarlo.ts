@@ -53,7 +53,7 @@ export function calcYenStrengthProb(rate: number, params: FxModelParams): number
 export function generateFxPath(params: FxModelParams, months: number = MONTHS): number[] {
   const path: number[] = [params.currentRate]
 
-  for (let i = 1; i < months; i++) {
+  for (let i = 1; i <= months; i++) {
     const prev = path[i - 1]
     const probYenStrong = calcYenStrengthProb(prev, params)
     const isYenStrong = Math.random() < probYenStrong

@@ -57,19 +57,19 @@ describe('calcYenStrengthProb', () => {
 })
 
 describe('generateFxPath', () => {
-  it('指定月数のパスを返す', () => {
+  it('指定月数のパスを返す（現在 + 月数 = months + 1 点）', () => {
     const path = generateFxPath(BASE_PARAMS, 12)
-    expect(path).toHaveLength(12)
+    expect(path).toHaveLength(13)
   })
 
-  it('1ヶ月目は currentRate と等しい', () => {
+  it('path[0] は currentRate と等しい', () => {
     const path = generateFxPath(BASE_PARAMS, 12)
     expect(path[0]).toBe(BASE_PARAMS.currentRate)
   })
 
-  it('デフォルトで MONTHS（12）月分を生成する', () => {
+  it('デフォルトで MONTHS（12）ヶ月分＋現在の 13 点を生成する', () => {
     const path = generateFxPath(BASE_PARAMS)
-    expect(path).toHaveLength(12)
+    expect(path).toHaveLength(13)
   })
 
   it('すべてのレートが正の値を保つ', () => {
@@ -79,7 +79,7 @@ describe('generateFxPath', () => {
     }
   })
 
-  it('月次変動幅0の場合、全月が初期レートと同じになる', () => {
+  it('月次変動幅0の場合、全点が初期レートと同じになる', () => {
     const params = { ...BASE_PARAMS, monthlyVariation: 0 }
     const path = generateFxPath(params, 12)
     path.forEach(rate => expect(rate).toBe(BASE_PARAMS.currentRate))
@@ -92,9 +92,9 @@ describe('runFxSimulations', () => {
     expect(paths).toHaveLength(BASE_PARAMS.simCount)
   })
 
-  it('各パスの長さが12になる', () => {
+  it('各パスの長さが13になる（現在 + 12ヶ月）', () => {
     const paths = runFxSimulations(BASE_PARAMS)
-    paths.forEach(path => expect(path).toHaveLength(12))
+    paths.forEach(path => expect(path).toHaveLength(13))
   })
 
   it('全パスの1ヶ月目が currentRate になる', () => {

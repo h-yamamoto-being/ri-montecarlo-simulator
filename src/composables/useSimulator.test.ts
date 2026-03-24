@@ -199,7 +199,7 @@ describe('useSimulator - runSimulation', () => {
     const { result, runSimulation } = useSimulator()
     runSimulation()
     const run = result.value!.runs[0]
-    expect(run.rates).toHaveLength(12)
+    expect(run.rates).toHaveLength(13)
     expect(run.costs).toHaveProperty('onDemand')
     expect(run.costs).toHaveProperty('riNoUpfront')
     expect(run.costs).toHaveProperty('riPartialUpfront')
